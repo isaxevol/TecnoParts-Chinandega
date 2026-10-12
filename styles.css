@@ -423,7 +423,7 @@ input:focus, select:focus, textarea:focus {
 /* MINI TARJETAS DE INDICADORES (KPIs COMPACTOS) */
 .kpi-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   margin-bottom: 16px;
 }
@@ -949,7 +949,7 @@ tr.click-row:hover td { background: var(--surface-raised); }
   .bento-col-8 { grid-column: span 12; }
   .bento-col-4 { grid-column: span 12; }
   .bento-col-3 { grid-column: span 6; }
-  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .kpi-row { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 768px) {

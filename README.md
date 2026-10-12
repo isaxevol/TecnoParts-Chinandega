@@ -95,8 +95,10 @@ El sistema solo alerta. Nunca compra por su cuenta: la decisión de cuánto y cu
 
 **Límites de la regla:** no considera temporadas (Día de la Madre, Navidad) ni promociones, y un pico reciente de ventas puede inflar el consumo.
 
-## Datos de ejemplo
+## Datos de ejemplo y simulación
 
+- 30 productos reales de ejemplo en 8 categorías de alta y baja rotación.
+- Simulación de consumo: el prototipo calcula la demanda a partir de la ventana de rotación configurada (30 días de histórico base y proyección de consumo diario sin requerir scripts externos de 90 días).
 - 30 productos en 8 categorías (celulares, pantallas, baterías, cargadores, cables, fundas, audífonos y memorias).
 - 3 proveedores con 3, 5 y 7 días de entrega.
 - Mezcla de estados para poder probar las alertas.
@@ -145,4 +147,4 @@ La interfaz del prototipo se elaboró con apoyo de Claude (Anthropic). El equipo
 
 ## Licencia
 
-MIT (propuesta, por confirmar con el equipo).
+MIT License. Ver archivo [LICENSE](LICENSE) para más detalles.

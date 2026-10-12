@@ -497,7 +497,7 @@ const views = {
     const alertPct = activeProducts.length > 0 ? Math.round((alerts.length / activeProducts.length) * 100) : 0;
 
     return `
-      <!-- FILA DE 4 MINI TARJETAS COMPACTAS (KPIs) -->
+      <!-- FILA DE 3 MINI TARJETAS COMPACTAS (KPIs) -->
       <div class="kpi-row">
         <div class="kpi-card" id="kpiActiveProds" title="Ver Existencias">
           <div class="kpi-label">PRODUCTOS ACTIVOS</div>
@@ -513,11 +513,6 @@ const views = {
           <div class="kpi-label">AGOTADOS</div>
           <div class="kpi-value" style="color:var(--red)">${outOfStock}</div>
           <div class="kpi-trend down">0 unidades en estante</div>
-        </div>
-        <div class="kpi-card" id="kpiRestockPending" title="Revisar Solicitudes">
-          <div class="kpi-label">REPOSICIÓN PENDIENTE</div>
-          <div class="kpi-value">${pendingRestocks.length}</div>
-          <div class="kpi-trend">Por autorizar</div>
         </div>
       </div>
 
@@ -585,8 +580,7 @@ const views = {
             </div>
           `}
 
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:14px;border-top:1px solid var(--line)">
-            <button class="btn btn-primary" id="btnDashNewRestock">+ Nueva reposición</button>
+          <div style="display:flex;justify-content:flex-end;align-items:center;margin-top:20px;padding-top:14px;border-top:1px solid var(--line)">
             <span class="muted" style="font-size:11px;font-weight:600">Total unidades vendidas en período: <b>${totalPeriodSales}</b></span>
           </div>
         </div>
@@ -635,8 +629,8 @@ const views = {
           </button>
         </div>
 
-        <!-- ZONA C1: FILA INFERIOR IZQUIERDA: CLASIFICACIÓN ABC (4 COLUMNAS) -->
-        <div class="bento-card bento-col-4">
+        <!-- ZONA C1: FILA INFERIOR IZQUIERDA: CLASIFICACIÓN ABC (6 COLUMNAS) -->
+        <div class="bento-card bento-col-6">
           <div class="bento-card-head">
             <div>
               <h3 class="bento-card-title">Clasificación ABC</h3>
@@ -644,16 +638,16 @@ const views = {
             </div>
           </div>
 
-          <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;margin:12px 0">
-            <div class="abc-item click-row" id="dashAbcA" style="padding:10px;text-align:center">
+          <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:12px;margin:12px 0">
+            <div class="abc-item click-row" id="dashAbcA" style="padding:12px;text-align:center">
               <strong style="color:var(--green)">Clase A</strong>
               <small style="display:block;margin-top:4px">${aList.length} prod. (80%)</small>
             </div>
-            <div class="abc-item click-row" id="dashAbcB" style="padding:10px;text-align:center">
+            <div class="abc-item click-row" id="dashAbcB" style="padding:12px;text-align:center">
               <strong style="color:var(--orange)">Clase B</strong>
               <small style="display:block;margin-top:4px">${bList.length} prod. (15%)</small>
             </div>
-            <div class="abc-item click-row" id="dashAbcC" style="padding:10px;text-align:center">
+            <div class="abc-item click-row" id="dashAbcC" style="padding:12px;text-align:center">
               <strong style="color:var(--blue)">Clase C</strong>
               <small style="display:block;margin-top:4px">${cList.length} prod. (5%)</small>
             </div>
@@ -667,35 +661,8 @@ const views = {
           <small class="muted" style="margin-top:8px;display:block">Concentración por volumen de ventas acumulado</small>
         </div>
 
-        <!-- ZONA C2: FILA INFERIOR CENTRO: REPOSICIÓN PENDIENTE (4 COLUMNAS) -->
-        <div class="bento-card bento-col-4">
-          <div class="bento-card-head">
-            <h3 class="bento-card-title">Reposición Sugerida</h3>
-            <span class="badge ${pendingRestocks.length > 0 ? 'BAJO' : 'NORMAL'}">${pendingRestocks.length} PENDIENTES</span>
-          </div>
-
-          <div style="margin:8px 0;display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--surface-raised);border-radius:12px">
-            <span style="font-size:11px;font-weight:600">Aprobar sugerencias automáticamente:</span>
-            <div class="switch-container ${store.autoApproveRestock ? 'on' : ''}" id="toggleAutoApprove">
-              <div class="switch-track">
-                <div class="switch-thumb"></div>
-              </div>
-            </div>
-          </div>
-
-          <p class="muted" style="font-size:12px;margin:8px 0 16px">
-            ${pendingRestocks.length > 0 
-              ? `Hay solicitudes de reposición calculadas automáticamente para reabastecer stock.`
-              : `Todo el stock está dentro de los límites seguros de inventario.`}
-          </p>
-
-          <button class="btn btn-primary full" id="btnReviewRestocks" style="margin-top:auto">
-            Revisar solicitudes (${pendingRestocks.length}) →
-          </button>
-        </div>
-
-        <!-- ZONA C3: FILA INFERIOR DERECHA: VALOR DEL INVENTARIO (4 COLUMNAS) -->
-        <div class="bento-card bento-col-4">
+        <!-- ZONA C2: FILA INFERIOR DERECHA: VALOR DEL INVENTARIO (6 COLUMNAS) -->
+        <div class="bento-card bento-col-6">
           <div class="bento-card-head">
             <h3 class="bento-card-title">Valor del Inventario</h3>
             <div class="switch-container ${store.valuationMode === 'price' ? 'on' : ''}" id="toggleValuation" title="Alternar entre Costo y Precio">
@@ -1035,7 +1002,7 @@ const views = {
               </div>
               <div style="display:flex;gap:10px;align-items:center">
                 <span class="badge ${a.metrics.status}">${a.metrics.status}</span>
-                ${isAdmin ? `<button class="btn btn-secondary btn-req-restock" data-sku="${a.product.sku}" onclick="event.stopPropagation()">Solicitar reposición</button>` : ''}
+                
               </div>
             </div>
           `).join('')}
@@ -1217,26 +1184,26 @@ const views = {
 
         <div class="bento-card bento-col-4">
           <div class="bento-card-head">
-            <h3 class="bento-card-title">Solicitudes Aprobadas</h3>
-            <span class="badge NORMAL">${approvedRequests.length}</span>
+            <h3 class="bento-card-title">Últimas Entradas</h3>
+            <span class="bento-card-sub">Histórico de recepción</span>
           </div>
 
           <div class="bento-list">
-            ${approvedRequests.length === 0 ? `<div class="empty">No hay solicitudes aprobadas pendientes de recibir.</div>` : approvedRequests.map(r => {
-              const p = store.products.find(x => x.sku === r.sku);
+            ${store.movements.filter(m => m.type === 'ENTRADA').slice(0, 5).map(m => {
+              const p = store.products.find(x => x.sku === m.sku);
               return `
                 <div class="bento-list-item">
                   <div style="display:flex;align-items:center;gap:10px">
-                    <div class="bento-item-avatar" style="background:var(--blue-bg);color:var(--blue)">↓</div>
+                    <div class="bento-item-avatar" style="background:var(--green-soft);color:var(--green)">↓</div>
                     <div>
-                      <strong style="font-size:12px;display:block">${r.sku} · ${esc(p?.name || '')}</strong>
-                      <small style="color:var(--muted)">Solicitud ${r.id} · ${pluralUnits(r.requestedQty || r.suggested)}</small>
+                      <strong style="font-size:12px;display:block">${m.sku} · ${esc(p?.name || '')}</strong>
+                      <small style="color:var(--muted)">${m.date} · +${m.qty} u.</small>
                     </div>
                   </div>
-                  <button class="btn btn-secondary btn-receive-req" data-id="${r.id}">Recibir</button>
+                  <span class="badge EXCESO">${m.qty} u.</span>
                 </div>
               `;
-            }).join('')}
+            }).join('') || '<div class="empty">Sin entradas recientes.</div>'}
           </div>
         </div>
       </div>
@@ -1404,8 +1371,7 @@ function bindViewHandlers(view) {
     $('#kpiActiveProds').onclick = () => { uiState.inventory.status = ''; go('existencias'); };
     $('#kpiAlertProds').onclick = () => go('alertas');
     $('#kpiStockoutProds').onclick = () => { uiState.inventory.status = 'AGOTADO'; go('existencias'); };
-    $('#kpiRestockPending').onclick = () => openRestocksManagementModal();
-
+    
     $('#subTabTop').onclick = () => { uiState.dashSubTab = 'top'; go('dashboard'); };
     $('#subTabLowest').onclick = () => { uiState.dashSubTab = 'lowest'; go('dashboard'); };
     $('#subTabExcess').onclick = () => { uiState.dashSubTab = 'excess'; go('dashboard'); };
@@ -1421,7 +1387,6 @@ function bindViewHandlers(view) {
       b.onclick = () => showProductDetailDrawer(b.dataset.sku);
     });
 
-    $('#btnDashNewRestock').onclick = () => openRestockModal();
     $('#mostSeverePill')?.addEventListener('click', () => showProductDetailDrawer($('#mostSeverePill').dataset.sku));
     $('#btnGoToAlerts').onclick = () => go('alertas');
 
@@ -1429,14 +1394,7 @@ function bindViewHandlers(view) {
     $('#dashAbcB').onclick = () => filterInventoryABC(0.95);
     $('#dashAbcC').onclick = () => filterInventoryABC(1.0);
 
-    $('#toggleAutoApprove').onclick = () => {
-      store.autoApproveRestock = !store.autoApproveRestock;
-      saveStore();
-      toast('Configuración guardada', `Aprobación automática: ${store.autoApproveRestock ? 'ENCENDIDA' : 'APAGADA'}`);
-      go('dashboard');
-    };
 
-    $('#btnReviewRestocks').onclick = () => openRestocksManagementModal();
 
     $('#toggleValuation').onclick = () => {
       store.valuationMode = store.valuationMode === 'cost' ? 'price' : 'cost';
@@ -2095,18 +2053,7 @@ function showProductDetailDrawer(sku) {
     </div>
   `;
 
-  let footerHtml = '';
-  if (isAdmin) {
-    footerHtml = `<button class="btn btn-primary" id="drawerReqRestockBtn">Solicitar reposición</button>`;
-  }
-
-  openDrawer(`Detalle de ${p.sku}`, bodyHtml, footerHtml);
-  if (isAdmin && $('#drawerReqRestockBtn')) {
-    $('#drawerReqRestockBtn').onclick = () => {
-      closeModal();
-      openRestockModal(p.sku);
-    };
-  }
+  openDrawer(`Detalle de ${p.sku}`, bodyHtml, '');
 }
 
 function openProductModal(editSku = null) {
