@@ -363,6 +363,10 @@ function go(view) {
   if (!checkAccess(view)) {
     logAudit('Intento acceso denegado', `Pantalla ${view}`, 'ERROR');
     toast('Acceso denegado', 'No tienes permisos para ver esta sección.', true);
+    const fallbackView = store.currentUser.role === 'ADMIN' ? 'dashboard' : 'vendedorHome';
+    if (view !== fallbackView) {
+      go(fallbackView);
+    }
     return;
   }
 
@@ -432,7 +436,8 @@ function refreshAppUI() {
     $('#topUser').textContent = store.currentUser.username;
     $('#railAvatarChar').textContent = store.currentUser.username[0].toUpperCase();
 
-    const initialView = store.currentView || (store.currentUser.role === 'ADMIN' ? 'dashboard' : 'vendedorHome');
+    const defaultRoleView = store.currentUser.role === 'ADMIN' ? 'dashboard' : 'vendedorHome';
+    const initialView = (store.currentView && checkAccess(store.currentView)) ? store.currentView : defaultRoleView;
     go(initialView);
   } else {
     showLoginView();
