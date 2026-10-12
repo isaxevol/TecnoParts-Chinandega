@@ -7,28 +7,102 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="logo.png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- VISTA DE LOGIN -->
   <div id="loginView" class="login-shell">
-    <div class="login-brand"><div class="brand-mark">TP</div><div><strong>TecnoParts</strong><span>Chinandega</span></div></div>
-    <div class="login-card">
-      <div class="eyebrow">CONTROL DE INVENTARIO</div><h1>Todo el stock,<br><em>bajo control.</em></h1>
-      <p class="muted">Inicia sesión para gestionar existencias, ventas y reposición.</p>
-      <form id="loginForm">
-        <label>Usuario<input id="loginUser" required autocomplete="username" placeholder="Ej. vendedor1" /></label>
-        <label>Contraseña<input id="loginPassword" required type="password" autocomplete="current-password" placeholder="••••••••" /></label>
-        <div id="loginError" class="form-error hidden"></div><button class="btn btn-primary full" type="submit">Entrar al sistema <span>→</span></button>
-      </form>
-      <div class="quick-access"><span>Accesos rápidos de demostración</span><button data-demo-login="vendedor1">Entrar como Vendedor <small>vendedor1</small></button><button data-demo-login="admin1">Entrar como Administrador <small>admin1</small></button></div>
+    <div class="login-brand">
+      <img src="logo.png" alt="TecnoParts Logo" class="brand-mark">
+      <div>
+        <strong>TecnoParts</strong>
+        <span>Chinandega</span>
+      </div>
     </div>
-    <div class="login-note"><span class="status-dot"></span> Datos de ejemplo · sesión local · sin conexión a backend</div>
+
+    <div class="login-card">
+      <div class="eyebrow">CONTROL DE INVENTARIO</div>
+      <h1>Todo el stock,<br><em>bajo control.</em></h1>
+      <p class="muted">Inicia sesión para gestionar existencias, ventas y reposición.</p>
+
+      <form id="loginForm">
+        <label>
+          Usuario
+          <input id="loginUser" required autocomplete="username" placeholder="Ej. vendedor1" />
+        </label>
+        <label>
+          Contraseña
+          <input id="loginPassword" required type="password" autocomplete="current-password" placeholder="••••••••" />
+        </label>
+        <div id="loginError" class="form-error hidden"></div>
+        <button class="btn btn-primary full" type="submit">
+          Entrar al sistema <span>→</span>
+        </button>
+      </form>
+
+      <div class="quick-access">
+        <span>Accesos rápidos de demostración</span>
+        <button data-demo-login="vendedor1">Entrar como Vendedor <small>vendedor1</small></button>
+        <button data-demo-login="admin1">Entrar como Administrador <small>admin1</small></button>
+      </div>
+    </div>
+
+    <div class="login-note">
+      <span class="status-dot"></span> Datos de ejemplo · <b>admin1 / Admin123</b> · <b>vendedor1 / Vend123</b>
+    </div>
   </div>
 
-  <div id="appView" class="app-shell hidden">
-    <aside class="sidebar"><div class="sidebar-head"><div class="brand-mark">TP</div><div class="brand-copy"><strong>TecnoParts</strong><span>Chinandega</span></div><button id="closeMobileNav" class="icon-btn mobile-only">×</button></div><div class="role-chip"><span class="avatar" id="sidebarAvatar">A</span><div><strong id="sidebarUser">admin1</strong><span id="sidebarRole">ADMINISTRADOR</span></div><span class="online-dot"></span></div><nav id="mainNav"></nav><div class="sidebar-footer"><div class="support-card"><span>¿Necesitas ayuda?</span><strong>Centro de soporte</strong><small>Disponible para tu equipo</small></div><button id="logoutBtn" class="logout-btn">↪ <span>Cerrar sesión</span></button></div></aside>
-    <main class="main-content"><header class="topbar"><button id="openMobileNav" class="icon-btn mobile-only">☰</button><div><div class="breadcrumb" id="breadcrumb">Panel general</div><h2 id="pageTitle">Tablero</h2></div><div class="top-actions"><button class="icon-btn" title="Notificaciones" id="notificationBtn">♢<span class="notif-badge">4</span></button><div class="user-menu"><span class="avatar" id="topAvatar">A</span><div><strong id="topUser">admin1</strong><small id="topRole">Administrador</small></div><span class="chevron">⌄</span></div></div></header><div id="toastRegion" class="toast-region"></div><section id="pageContent" class="page-content"></section></main>
+  <!-- VISTA DE APLICACIÓN CON ARQUITECTURA BENTO -->
+  <div id="appView" class="bento-shell hidden">
+    <!-- RIEL LATERAL DELGADO (~76px) -->
+    <aside class="icon-rail">
+      <div class="rail-logo">
+        <img src="logo.png" alt="TecnoParts" class="brand-mark">
+      </div>
+
+      <nav id="railNav" class="rail-nav">
+        <!-- Renderizado dinámico según rol -->
+      </nav>
+
+      <div class="rail-footer">
+        <button id="themeToggleBtn" class="rail-btn" data-tooltip="Cambiar tema">
+          <span id="themeIcon">☼</span>
+        </button>
+        <div class="rail-avatar" id="railAvatarBtn" data-tooltip="Perfil de usuario">
+          <span id="railAvatarChar">A</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL BENTO -->
+    <main class="bento-main">
+      <header class="bento-topbar">
+        <div class="bento-topbar-left">
+          <span class="bento-breadcrumb" id="breadcrumb">Panel general</span>
+          <h2 class="bento-topbar-title" id="pageTitle">Tablero</h2>
+        </div>
+
+        <div class="bento-topbar-actions">
+          <button class="icon-circle-btn" id="supportModalBtn" title="Centro de soporte">?</button>
+          <button class="icon-circle-btn" id="notificationBtn" title="Alertas de inventario">
+            <span>♢</span>
+            <span class="rail-badge notif-badge">0</span>
+          </button>
+          <div class="user-menu" id="userMenuWrapper">
+            <button class="btn btn-secondary" style="padding:8px 14px;border-radius:var(--radius-pill);gap:8px" id="userMenuBtn">
+              <span id="topUser">admin1</span>
+              <span style="font-size:10px;color:var(--muted)">⌄</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div id="toastRegion" class="toast-region"></div>
+      <section id="pageContent" style="display:flex;flex-direction:column;gap:16px"></section>
+    </main>
   </div>
+
   <div id="modalRoot"></div>
   <script src="app.js"></script>
 </body>
