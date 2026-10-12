@@ -339,6 +339,7 @@ const navByRole = {
     ['dashboard', '⌂', 'Tablero'],
     ['existencias', '▦', 'Existencias'],
     ['venta', '↗', 'Registrar venta'],
+    ['alertas', '⚠', 'Alertas'],
     ['productos', '◈', 'Productos y proveedores'],
     ['entradas', '↓', 'Entradas'],
     ['ajustes', '⊙', 'Ajustes'],
