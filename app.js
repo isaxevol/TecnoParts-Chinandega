@@ -120,7 +120,7 @@ function saveStore() {
       movements: store.movements,
       restocks: store.restocks,
       logs: store.logs,
-      currentUser: store.currentUser,
+      currentUser: null,
       autoApproveRestock: store.autoApproveRestock,
       valuationMode: store.valuationMode
     }));
@@ -140,7 +140,7 @@ function loadStore() {
       store.movements = parsed.movements || [];
       store.restocks = parsed.restocks || [];
       store.logs = parsed.logs || [];
-      store.currentUser = parsed.currentUser || null;
+      store.currentUser = null; // Siempre solicitar login al cargar la página
       store.autoApproveRestock = parsed.autoApproveRestock || false;
       store.valuationMode = parsed.valuationMode || 'cost';
       return;
