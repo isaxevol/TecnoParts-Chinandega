@@ -143,6 +143,8 @@ Este repositorio es un **prototipo de interfaz**, no la versión de producción.
 
 ## Uso de IA
 
+- Declaración de uso responsable de IA pendiente por redactar.
+
 La interfaz del prototipo se elaboró con apoyo de Claude (Anthropic). El equipo revisó el resultado y es responsable de todo el contenido.
 
 ## Licencia
